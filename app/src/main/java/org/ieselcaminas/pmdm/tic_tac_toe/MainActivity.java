@@ -1,5 +1,6 @@
 package org.ieselcaminas.pmdm.tic_tac_toe;
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,7 @@ public void newGame()
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_main);
 	text=findViewById(R.id.textView);
+	text.setTypeface(Typeface.createFromAsset(getAssets(), "Serpentine.ttf"));
 	reset=findViewById(R.id.bReset);
 	newGame();
 
@@ -160,35 +162,40 @@ public void createButtons()
 		{
 			buttons[i][j]=new Button(getApplicationContext(), null, android.R.attr.buttonStyleSmall);
 			g.addView(buttons[i][j]);
-			buttons[i][j].setOnClickListener(new View.OnClickListener()
-			{
-				@Override public void onClick(View v)
-				{
-					Button button=(Button) v;
-					if (button.getText().toString().equals(""))
-					{
-						counter++;
-						if(!gameover && isPlayer1)
-						{
-							button.setText("X");
-							text.setText("Turn of Player 2 (O)");
-							Check(isPlayer1);
-							isPlayer1=false;
-							input=true;
-						}
-						else if(!gameover && !isPlayer1)
-						{
-							button.setText("O");
-							text.setText("Turn of Player 1 (X)");
-							Check(isPlayer1);
-							isPlayer1=true;
-							input=true;
-						}
-					}
-
-				}
-			});
+			addListener(buttons[i][j]);
 		}
 	}
+}
+
+public void addListener(Button button)
+{
+	button.setOnClickListener(new View.OnClickListener()
+	{
+		@Override public void onClick(View v)
+		{
+			Button button=(Button) v;
+			if (button.getText().toString().equals(""))
+			{
+				counter++;
+				if(!gameover && isPlayer1)
+				{
+					button.setText("X");
+					text.setText("Turn of Player 2 (O)");
+					Check(isPlayer1);
+					isPlayer1=false;
+					input=true;
+				}
+				else if(!gameover && !isPlayer1)
+				{
+					button.setText("O");
+					text.setText("Turn of Player 1 (X)");
+					Check(isPlayer1);
+					isPlayer1=true;
+					input=true;
+				}
+			}
+
+		}
+	});
 }
 }
