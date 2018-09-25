@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity
 Button[][] buttons;
 Button reset;
 GridLayout g;
+int counter;
 boolean isPlayer1;
 boolean gameover;
 boolean input;
@@ -22,6 +23,7 @@ public void newGame()
 {
 	isPlayer1=true;
 	gameover=false;
+	counter=0;
 	input=false;
 	text.setText("Turn of Player 1 (X)");
 }
@@ -143,6 +145,12 @@ public void Check(Boolean player)
 	{
 		count=0;
 	}
+	if(counter==9)
+	{
+		gameover=true;
+		text.setText("Draw!");
+		return;
+	}
 }
 public void createButtons()
 {
@@ -159,6 +167,7 @@ public void createButtons()
 					Button button=(Button) v;
 					if (button.getText().toString().equals(""))
 					{
+						counter++;
 						if(!gameover && isPlayer1)
 						{
 							button.setText("X");
